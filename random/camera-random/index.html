@@ -1,0 +1,130 @@
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=1, initial-scale=1.0">
+    <link rel="stylesheet" href="styles.css">
+    <title>camera-random-system-1</title>
+</head>
+<body>
+   
+    <h1>random</h1>
+
+    <!-- load p5.js   -->
+    <script  src="https://cdn.jsdelivr.net/npm/p5@1.4.2/lib/p5.js"></script>   
+    <!-- js sketch start -->
+    <script id=canvas>
+
+        let capture;
+        let width = 1500;
+        let height = 1000;
+
+        let color
+
+        function setup(){
+            createCanvas(width+200, height);
+            capture = createCapture(VIDEO);
+            capture.hide();
+            //frameRate(25);
+
+            console.log(createCapture);
+
+            
+
+        }
+
+        function draw(){
+
+            
+            background(255);
+            
+
+            flexibleSystem();
+    }
+
+        function flexibleSystem(){
+
+                        //the camera detects a random color in the room and outputs 4 values (r,g,b,a);
+            if (capture.loadedmetadata) {
+            let c = capture.get(0, 0, 100, 200);
+            
+            }
+
+
+
+            let color = capture.get(50,50);
+             //let colorInvert;  https://editor.p5js.org/awdriggs/sketches/KMOpsQfDz - color invert
+
+            //flexible system  
+            const taille = 45;
+            const numX = width/ taille;
+            const numY = height/ taille;
+
+            //randomSeed(map(mouseX,0,width,0,taille));
+            randomSeed(1336);
+            
+            stroke(color);
+            strokeWeight(10);
+            for( let j =0; j<numY; j++) {
+                for( let i =0; i<numX; i++) { // 
+                    const x = i*taille;
+                    const y = j*taille;
+
+                //fill(255)   
+                //rect(x,y,taille,taille);
+
+                //filter(INVERT);
+                stroke(color);
+
+                const xRandom = x * random(25);
+                
+                    
+                if(random(1) < 0.5){
+                 
+                
+                //line(x,y, x+taille, y + taille);
+
+                push();
+                fill(color);
+                ellipse(x,y,taille,taille);
+                pop();
+                        
+                } else {
+
+                    line(x +taille,y, x, y + taille); 
+                }
+                
+            }
+        }
+
+        //rect(width/2,height/2,50,50)
+
+        image(capture, width+40, 0, width/9, (width * capture.height / capture.width)/9);
+
+        }
+
+        function keyTyped(){
+
+        if (key === 's') {
+
+            saveCanvas('selfie', 'png', 1, 25);
+            console.log('typed s')
+        }
+        
+        }
+
+        function myInputEvent() {
+        console.log('you are typing: ', this.value());
+        }
+
+
+
+
+
+
+    </script>
+
+
+</head>  
+</body>
+</html>

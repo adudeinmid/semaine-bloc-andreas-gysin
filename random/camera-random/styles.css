@@ -1,0 +1,12 @@
+body {
+    margin: auto;
+}
+
+h1 {
+    font-family: sans-serif;
+    margin: 1pc;
+}
+
+#canvas{
+    display: float;
+}

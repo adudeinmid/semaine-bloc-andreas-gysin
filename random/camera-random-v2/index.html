@@ -4,11 +4,11 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=1, initial-scale=1.0">
     <link rel="stylesheet" href="styles.css">
-    <title>camera-random-system-1</title>
+    <title>camera-random-system-2</title>
 </head>
 <body>
    
-    <h1>random</h1>
+    <h1>let it rain</h1>
 
     <!-- load p5.js   -->
     <script  src="https://cdn.jsdelivr.net/npm/p5@1.4.2/lib/p5.js"></script>   
@@ -19,7 +19,11 @@
         let width = 1500;
         let height = 1000;
 
-        let color
+        let color;
+
+        let rSlider, gSlider, bSlider;
+
+        let magicSlider;
 
         function setup(){
             createCanvas(width+200, height);
@@ -27,9 +31,20 @@
             capture.hide();
             //frameRate(25);
 
-            console.log(createCapture);
+            //console.log(createCapture);
 
+            rSlider = createSlider(0, 255, 100);
+            rSlider.position(width + 50, height/15);
             
+            gSlider = createSlider(0, 255, 0);
+            gSlider.position(width + 50, (height/15)+20);
+           
+            bSlider = createSlider(0, 255, 255);
+            bSlider.position(width + 50, (height/15)+40);
+
+            magicSlider = createSlider(0,765,0);
+            magicSlider.position(width + 50, (height/15)+60);
+           
 
         }
 
@@ -38,22 +53,33 @@
             
             background(255);
             
-
             flexibleSystem();
     }
 
         function flexibleSystem(){
 
-                        //the camera detects a random color in the room and outputs 4 values (r,g,b,a);
-            if (capture.loadedmetadata) {
-            let c = capture.get(0, 0, 100, 200);
+            //////////////// CAMERA ////////////////
             
+            //the camera detects a random color in the room and outputs 4 values (r,g,b,a);
+            if (capture.loadedmetadata) {
+            let c = capture.get(0, 0, 100, 200);        
             }
 
-
-
             let color = capture.get(50,50);
-             //let colorInvert;  https://editor.p5js.org/awdriggs/sketches/KMOpsQfDz - color invert
+            //let colorInvert;  https://editor.p5js.org/awdriggs/sketches/KMOpsQfDz - color invert
+
+            //////////////// CAMERA ////////////////
+
+
+            const r = rSlider.value();
+            const g = gSlider.value();
+            const b = bSlider.value();
+
+            //const magic = magicSlider.value();
+            const magic = rSlider.value() + gSlider.value() + bSlider.value();
+            //console.log(magic);
+
+            console.log(magicSlider.value());
 
             //flexible system  
             const taille = 45;
@@ -61,45 +87,38 @@
             const numY = height/ taille;
 
             //randomSeed(map(mouseX,0,width,0,taille));
-            randomSeed(1336);
-            
-            stroke(color);
-            strokeWeight(10);
+            randomSeed(magicSlider.value());
+
+            strokeWeight(1);
             for( let j =0; j<numY; j++) {
                 for( let i =0; i<numX; i++) { // 
-                    const x = i*taille;
-                    const y = j*taille;
-
-                //fill(255)   
-                //rect(x,y,taille,taille);
-
-                //filter(INVERT);
-                stroke(color);
-
-                const xRandom = x * random(25);
-                
                     
-                if(random(1) < 0.5){
+                const x = i*taille;
+                const y = j*taille;
+
+                stroke(r,g,b);
+                fill(r,g,b);
+
+                           
+                if( magicSlider.value() < 765/2){
                  
                 
-                //line(x,y, x+taille, y + taille);
-
-                push();
-                fill(color);
-                ellipse(x,y,taille,taille);
-                pop();
+                    ellipse(x,y,taille,taille);
+                    line(x +taille,y, x, y + taille); 
+                
                         
                 } else {
 
-                    line(x +taille,y, x, y + taille); 
+
                 }
                 
             }
         }
 
-        //rect(width/2,height/2,50,50)
+        rect(width/2,height/2,50,50)
 
-        image(capture, width+40, 0, width/9, (width * capture.height / capture.width)/9);
+        //image(capture, width+40, 0, width/9, (width * capture.height / capture.width)/9);
+        //image(capture, 0, 0, width/9, (width * capture.height / capture.width)/9);
 
         }
 

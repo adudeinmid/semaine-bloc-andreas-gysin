@@ -8,10 +8,20 @@
 </head>
 <body>
    
-    <h1>let it rain</h1>
+    <h1>
+        
+    let it rain
+    <!-- <label for="colorpicker" id="picker">color picker</label>
+    <input type="color" id="colorpicker" value="#0000ff"> -->
+    </h1>
+
+
+
+
 
     <!-- load p5.js   -->
     <script  src="https://cdn.jsdelivr.net/npm/p5@1.4.2/lib/p5.js"></script>   
+    
     <!-- js sketch start -->
     <script id=canvas>
 
@@ -42,17 +52,17 @@
             bSlider = createSlider(0, 255, 255);
             bSlider.position(width + 50, (height/15)+40);
 
-            magicSlider = createSlider(0,765,0);
+            magicSlider = createSlider(0,765,100);
             magicSlider.position(width + 50, (height/15)+60);
+            //magicSlider.position( 50, (height/15)+60);
+
            
 
         }
 
         function draw(){
-
             
-            background(255);
-            
+            background(255);           
             flexibleSystem();
     }
 
@@ -81,7 +91,10 @@
 
             console.log(magicSlider.value());
 
-            //flexible system  
+            
+            
+            
+            //////////////// FLEXIBLE SYSTEM ////////////////
             const taille = 45;
             const numX = width/ taille;
             const numY = height/ taille;
@@ -100,22 +113,30 @@
                 fill(r,g,b);
 
                            
-                if( magicSlider.value() < 765/2){
+                if( random(magicSlider.value()/2) < magicSlider.value()*0.1){
                  
                 
-                    ellipse(x,y,taille,taille);
-                    line(x +taille,y, x, y + taille); 
+                     ellipse(x,y,taille,taille);
+                    // line(x +taille,y, x, y + taille); 
                 
                         
                 } else {
 
-
+                    push();
+                    noFill();
+                    //triangle(x, y, taille, taille, random(width,height), random(width/2,height/2));
+                    //ellipse(x,y,taille,taille);
+                    strokeWeight(4);
+                    line(x +taille,y, x, y + taille); 
+                    pop();     
                 }
                 
             }
+
+
         }
 
-        rect(width/2,height/2,50,50)
+        //rect(width/2,height/2,50,50)
 
         //image(capture, width+40, 0, width/9, (width * capture.height / capture.width)/9);
         //image(capture, 0, 0, width/9, (width * capture.height / capture.width)/9);
@@ -138,10 +159,15 @@
 
 
 
-
-
-
     </script>
+    <!-- js sketch stop -->
+
+     <!-- <script>
+    document.querySelector("color").onchange = e => {
+    console.log('color' + e.target.value)
+    }
+    </script> -->
+
 
 
 </head>  

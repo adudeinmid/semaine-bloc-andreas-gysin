@@ -1,6 +1,8 @@
 let port, reader, writer;
 const col = { r: 0, g: 0, b: 0 }
 
+//exports.col = colorSeed;
+
 async function setup() {
 	createCanvas(windowWidth, windowHeight);
 	noLoop();

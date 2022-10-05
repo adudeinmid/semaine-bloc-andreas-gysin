@@ -26,7 +26,7 @@
     <script id=canvas>
 
         let capture;
-        let width = 1500;
+        let width = 1800;
         let height = 1000;
 
         let color;
@@ -63,6 +63,8 @@
             
             background('#131313');           
             flexibleSystem();
+            //windowResized();
+            console.log(windowWidth);
     }
 
         function flexibleSystem(){
@@ -160,7 +162,7 @@
 
         function windowResized() {
         resizeCanvas(windowWidth, windowHeight);
-        console.log(windowWidth)
+        console.log(windowWidth);
         }
 
     </script>

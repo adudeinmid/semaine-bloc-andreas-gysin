@@ -1,7 +1,7 @@
 let port, reader, writer;
 const col = { r: 0, g: 0, b: 0 }
 
-let width = 1800;
+let width = 1000;
 let height = 1000;
 
 let color;
@@ -23,7 +23,7 @@ async function setup() {
 
 }
 
-async function readArduino() {
+async function readArduino() { 
 	try {
 		while (true) {
 			const { value, done } = await reader.read();
@@ -67,9 +67,14 @@ async function readArduino() {
 function draw() {
 
 	background(col.r, col.g, col.b);
-	flexibleSystem();
+	//flexibleSystem(col.r, col.g, col.b);
+	flexibleSystem(col.r, col.g, col.b);
 	//windowResized();
-	console.log('red' + col.r);
+	
+	// DEBUG
+	// console.log('red' + col.r);
+	// console.log('green' + col.g);
+	// console.log('blue' + col.b);
 
 
 }
@@ -80,48 +85,28 @@ function draw() {
 
 
 
-function flexibleSystem(){
+function flexibleSystem(a, b, c){
 
-	////////////////// CAMERA ////////////////
-	//
-	////the camera detects a random color in the room and outputs 4 values (r,g,b,a);
-	//if (capture.loadedmetadata) {
-	//let c = capture.get(0, 0, 100, 200);        
-	//}
-//
-	//let color = capture.get(50,50);
-	////let colorInvert;  https://editor.p5js.org/awdriggs/sketches/KMOpsQfDz - color invert
-//
-	////////////////// CAMERA ////////////////
-
-
-	// const r = rSlider.value();
-	// const g = gSlider.value();
-	// const b = bSlider.value();
-
-	// //const magic = magicSlider.value();
-	// const magic = rSlider.value() + gSlider.value() + bSlider.value();
-	// //console.log(magic);
-
-	//console.log(magicSlider.value());
-
-	
-	
 	
 	//////////////// FLEXIBLE SYSTEM ////////////////
 	const taille = 50;
-	const numX = width/ taille;
-	const numY = height/ taille;
+	const numX = 16;
+	const numY = 16;
 	
-	const seed = col.r+ col.g + col.b;
+	// creates seeds 
+	const seed = a + b + c; 
+	console.log('seed = ' + seed);
 
+	//map(a, 0, 255,0, taille/2);
+	
+	a1 = a + Math.sqrt(a + b);
+	b1 = b + Math.sqrt(c + a);
+	b3 = c + Math.sqrt(a+b);
+	console.log('a1 ='+ a1);
+	
 
-
-
+	translate(50,50);	
 	randomSeed(seed);
-
-	console.log(seed);
-
 	strokeWeight(1);
 	
 	for( let j =0; j<numY; j++) {
@@ -133,26 +118,12 @@ function flexibleSystem(){
 		stroke(0);
 		fill(0);
 
-		ellipse(x,y,taille/2,taille/2);
+		//ellipse(x+a1 ,a1+j,taille,taille);
+		line(x +a1,y +b1, x, y + a1);
+		text('a',x + b1, y);	
 
-				   
-		if( random(seed) < seed/2 ){
-		 
-		
-			// ellipse(x,y,taille/2,taille/2);
-			// line(x +taille,y, x, y + taille); 
-		
-				
-		} else {
 
-			push();
-			noFill();
-			//triangle(x, y, taille, taille, random(width,height), random(width/2,height/2));
-			//ellipse(x,y,taille,taille);
-			strokeWeight(4);
-			//line(x +taille,y, x, y + taille); 
-			pop();     
-		}
+
 		
 	}
 

@@ -18,7 +18,7 @@
 
 
 
-
+    <div id="randomSystem">
     <!-- load p5.js   -->
     <script  src="https://cdn.jsdelivr.net/npm/p5@1.4.2/lib/p5.js"></script>   
     
@@ -36,25 +36,24 @@
         let magicSlider;
 
         function setup(){
-            createCanvas(width+200, height);
-            capture = createCapture(VIDEO);
-            capture.hide();
+            createCanvas(width, height);
+            //capture = createCapture(VIDEO);
+            //capture.hide();
             //frameRate(25);
 
             //console.log(createCapture);
 
             rSlider = createSlider(0, 255, 100);
-            rSlider.position(width + 50, height/15);
+            rSlider.position(width/6, height*0.03);
+            rSlider.addClass("mySliders");
             
             gSlider = createSlider(0, 255, 0);
-            gSlider.position(width + 50, (height/15)+20);
+            gSlider.position(width/6 + 100, height*0.03);
+            gSlider.addClass("mySliders");
            
             bSlider = createSlider(0, 255, 255);
-            bSlider.position(width + 50, (height/15)+40);
-
-            magicSlider = createSlider(0,765,100);
-            magicSlider.position(width + 50, (height/15)+60);
-            //magicSlider.position( 50, (height/15)+60);
+            bSlider.position(width/6 + 200, height*0.03);
+            bSlider.addClass("mySliders");
 
            
 
@@ -62,23 +61,23 @@
 
         function draw(){
             
-            background(255);           
+            background('#131313');           
             flexibleSystem();
     }
 
         function flexibleSystem(){
 
-            //////////////// CAMERA ////////////////
-            
-            //the camera detects a random color in the room and outputs 4 values (r,g,b,a);
-            if (capture.loadedmetadata) {
-            let c = capture.get(0, 0, 100, 200);        
-            }
-
-            let color = capture.get(50,50);
-            //let colorInvert;  https://editor.p5js.org/awdriggs/sketches/KMOpsQfDz - color invert
-
-            //////////////// CAMERA ////////////////
+            ////////////////// CAMERA ////////////////
+            //
+            ////the camera detects a random color in the room and outputs 4 values (r,g,b,a);
+            //if (capture.loadedmetadata) {
+            //let c = capture.get(0, 0, 100, 200);        
+            //}
+//
+            //let color = capture.get(50,50);
+            ////let colorInvert;  https://editor.p5js.org/awdriggs/sketches/KMOpsQfDz - color invert
+//
+            ////////////////// CAMERA ////////////////
 
 
             const r = rSlider.value();
@@ -89,7 +88,7 @@
             const magic = rSlider.value() + gSlider.value() + bSlider.value();
             //console.log(magic);
 
-            console.log(magicSlider.value());
+            //console.log(magicSlider.value());
 
             
             
@@ -99,8 +98,13 @@
             const numX = width/ taille;
             const numY = height/ taille;
 
+            const seed = r+g+b;
+
             //randomSeed(map(mouseX,0,width,0,taille));
-            randomSeed(magicSlider.value());
+            //randomSeed(magicSlider.value();
+            randomSeed(seed);
+
+            console.log(seed);
 
             strokeWeight(1);
             for( let j =0; j<numY; j++) {
@@ -113,11 +117,11 @@
                 fill(r,g,b);
 
                            
-                if( random(magicSlider.value()/2) < magicSlider.value()*0.1){
+                if( random(seed) < seed/2 ){
                  
                 
-                     ellipse(x,y,taille,taille);
-                    // line(x +taille,y, x, y + taille); 
+                    ellipse(x,y,taille/2,taille/2);
+                    line(x +taille,y, x, y + taille); 
                 
                         
                 } else {
@@ -127,7 +131,7 @@
                     //triangle(x, y, taille, taille, random(width,height), random(width/2,height/2));
                     //ellipse(x,y,taille,taille);
                     strokeWeight(4);
-                    line(x +taille,y, x, y + taille); 
+                    //line(x +taille,y, x, y + taille); 
                     pop();     
                 }
                 
@@ -153,15 +157,15 @@
         
         }
 
-        function myInputEvent() {
-        console.log('you are typing: ', this.value());
+
+        function windowResized() {
+        resizeCanvas(windowWidth, windowHeight);
+        console.log(windowWidth)
         }
-
-
 
     </script>
     <!-- js sketch stop -->
-
+    </div>
      <!-- <script>
     document.querySelector("color").onchange = e => {
     console.log('color' + e.target.value)

@@ -101,11 +101,15 @@ function flexibleSystem(a, b, c){
 	
 	a1 = a + Math.sqrt(a + b);
 	b1 = b + Math.sqrt(c + a);
-	b3 = c + Math.sqrt(a+b);
+	c1 = c + Math.sqrt(a+b);
 	console.log('a1 ='+ a1);
-	
 
-	translate(50,50);	
+	let translateTest = 50;
+	
+	//translate(width / 2, height / 2);
+	//strokeWeight(strokeW);
+
+	translate(translateTest,translateTest);	
 	randomSeed(seed);
 	strokeWeight(1);
 	
@@ -115,18 +119,31 @@ function flexibleSystem(a, b, c){
 		const x = i*taille;
 		const y = j*taille;
 
+		
+		//rotate(frameCount * 0.01);
+		//nofill();
+		//translate(width/2, translateTest/2);
+		stroke(0)
+		fill(a,b,c);
+		arc(random(x) + c1 , random(y) + c1, taille/2, taille/2, 0, (PI + HALF_PI)* (c1), PIE);
+		//pop();
+		
 		stroke(0);
 		fill(0);
 
 		//ellipse(x+a1 ,a1+j,taille,taille);
 		line(x +a1,y +b1, x, y + a1);
-		text('a',x + b1, y);	
+		// arc - https://editor.p5js.org/adudeinmid/sketches/SBac21Wue
+		
+
+		//text('#”‹--+*)(%&',x + b1, y);	
 
 
 
 		
 	}
 
+	//background(col.r, col.g, col.b);
 
 }
 

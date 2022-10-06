@@ -1,18 +1,26 @@
 let port, reader, writer;
 const col = { r: 0, g: 0, b: 0 }
-
 let width = 1000;
 let height = 1000;
-
 let color;
 
-// let rSlider, gSlider, bSlider;
+// ///ASCI CODE TEST///
 
-// let magicSlider;
 
+// var options = [' ','`','.',',-',"':",';_~','"','*|','!l',
+// '+=','>','<L','\\i','/^','1?','Jv','r','()cx','7}','sz',
+// '3u','2Ckty{','jn','4FVY','5P[]af','qw','Sde','Eo',
+// 'NOZ','9HXgh','GTU','$AIm','QW','KM','%8','#06@','bp',
+// 'D','&','R','B'];
+
+
+// ///ASCI CODE TEST///
+
+//0,255 le chiffre 
 
 async function setup() {
-	createCanvas(windowWidth, windowHeight);
+	
+	cnv = createCanvas(windowWidth, windowHeight); //ASCII
 	noLoop();
 	({ port, reader, writer } = await getPort());
 	loop();
@@ -23,6 +31,7 @@ async function setup() {
 
 }
 
+///DON'T TOUCH THIS
 async function readArduino() { 
 	try {
 		while (true) {
@@ -39,37 +48,16 @@ async function readArduino() {
 	} catch (e) { console.error(e) }
 	requestAnimationFrame(readArduino)
 }
-
-// function setup(){
-// 	createCanvas(width, height);
-// 	//capture = createCapture(VIDEO);
-// 	//capture.hide();
-// 	//frameRate(25);
-
-// 	//console.log(createCapture);
-
-// 	rSlider = createSlider(0, 255, 100);
-// 	rSlider.position(width/6, height*0.03);
-// 	rSlider.addClass("mySliders");
-	
-// 	gSlider = createSlider(0, 255, 0);
-// 	gSlider.position(width/6 + 100, height*0.03);
-// 	gSlider.addClass("mySliders");
-   
-// 	bSlider = createSlider(0, 255, 255);
-// 	bSlider.position(width/6 + 200, height*0.03);
-// 	bSlider.addClass("mySliders");
-
-   
-
-// }
+///DON'T !
 
 function draw() {
 
-	background(col.r, col.g, col.b);
-	//flexibleSystem(col.r, col.g, col.b);
+	background(255);
 	flexibleSystem(col.r, col.g, col.b);
-	//windowResized();
+	
+	// //ASCII
+	// image(capture, 0, 0, width, height);
+	// if (live) calcCapture();
 	
 	// DEBUG
 	// console.log('red' + col.r);
@@ -78,12 +66,6 @@ function draw() {
 
 
 }
-
-
-
-
-
-
 
 function flexibleSystem(a, b, c){
 
@@ -154,6 +136,8 @@ function flexibleSystem(a, b, c){
 
 }
 
+
+
 function keyTyped(){
 
 if (key === 's') {
@@ -163,6 +147,8 @@ if (key === 's') {
 }
 
 }
+
+
 
 
 function windowResized() {
